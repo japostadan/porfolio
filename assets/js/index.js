@@ -187,11 +187,11 @@ const commands = {
             <div class="neofetch-container">
                 <pre class="ascii-art">
             .--.      
-           |o_o |     <span class="success">OS:</span> Ubuntu 22.04 LTS
-           |:_/ |     <span class="success">Host:</span> Portfolio Terminal
-          //   \\\\     <span class="success">Kernel:</span> Developer v3.0
-         (|     | )   <span class="success">Uptime:</span> 3 years, 2 months
-        /'\\_   _/\`\\\\<span class="success">Packages:</span> JavaScript, Python, React
+           |o_o |     <span class="success"> OS:</span> Ubuntu 22.04 LTS
+           |:_/ |     <span class="success"> Host:</span> Portfolio Terminal
+          //   \\\\     <span class="success"> Kernel:</span> Developer v3.0
+         (|     | )   <span class="success"> Uptime:</span> 3 years, 2 months
+        /'\\_   _/\`\\\\<span class="success">   Packages:</span> JavaScript, React, C
         \\\\___)=(___/   <span class="success">Shell:</span> Terminal Portfolio v1.0
                        <span class="success">IDE:</span> VS Code, Vim
                        <span class="success">Coffee:</span> ████████████████ 100%

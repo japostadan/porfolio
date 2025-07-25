@@ -264,9 +264,9 @@
 
  /* start tree command */
 .tree-structure {
-    background-color: #161b22; /* Dark background like a terminal */
-    color: #c9d1d9; /* Light text color */
-    font-family: 'Fira Code', monospace; /* Monospaced font for alignment */
+    background-color: #161b22; 
+    color: #c9d1d9;
+    font-family: 'Fira Code', monospace;
     font-size: 14px;
     padding: 20px;
     border-radius: 8px;
@@ -274,19 +274,49 @@
 }
 
 .tree-structure .directory {
-    color: #ffa657; /* Yellow for directories */
+    color: #ffa657; 
     font-weight: 600;
 }
 
 .tree-structure .file {
-    color: #7ee787; /* Light green for files */
+    color: #7ee787; 
     font-weight: 500;
 }
 
 .tree-structure br {
-    display: block; /* Ensure line breaks are visible */
+    display: block; 
 }
 /* end tree command */
+
+/* start neofetch command */
+.neofetch-container {
+    background-color: #161b22; 
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    font-family: 'Fira Code', monospace; 
+    color: #c9d1d9;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.neofetch-container .ascii-art {
+    color: #7ee787; /* Light green for ASCII art */
+    font-size: 16px;
+    white-space: pre; /* Ensures line breaks and spaces in ASCII art are respected */
+}
+
+.neofetch-container .success {
+    color: #58a6ff; /* Light green for system info labels */
+    font-weight: 500;
+    margin: 5px
+}
+
+.neofetch-container br {
+    display: block; /* Makes sure the <br> tags add visible line breaks */
+}
+/* start neofetch command */
 
 /* Blinking animation for the cursor */
 @keyframes blink {
@@ -345,55 +375,13 @@
      }
      
      .tree-structure {
-        font-size: 12px; /* Adjust font size for smaller screens */
+        font-size: 12px; 
         padding: 15px;
     }
- }
 
-@media (max-width: 480px) {
-    .tree-structure {
-        font-size: 10px; /* Further reduce font size on small screens */
-        padding: 10px;
-    }
-}
-
-.neofetch-container {
-    background-color: #161b22; /* Dark background like a terminal */
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    font-family: 'Fira Code', monospace; /* Monospaced font for the terminal look */
-    color: #c9d1d9; /* Light text color */
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.neofetch-container .highlight {
-    color: #ffa657; /* Yellow for the username */
-    font-weight: 600;
-    font-size: 18px;
-}
-
-.neofetch-container .ascii-art {
-    color: #7ee787; /* Light green for ASCII art */
-    font-size: 16px;
-    white-space: pre; /* Ensures line breaks and spaces in ASCII art are respected */
-}
-
-.neofetch-container .success {
-    color: #7ee787; /* Light green for system info labels */
-    font-weight: 500;
-}
-
-.neofetch-container br {
-    display: block; /* Makes sure the <br> tags add visible line breaks */
-}
-
-@media (max-width: 768px) {
-    .neofetch-container {
+        .neofetch-container {
         padding: 15px;
-        font-size: 12px; /* Adjust font size for smaller screens */
+        font-size: 12px;
     }
 
     .neofetch-container .highlight {
@@ -407,12 +395,16 @@
     .neofetch-container .success {
         font-size: 12px;
     }
-}
+ }
 
 @media (max-width: 480px) {
-    .neofetch-container {
+    .tree-structure {
+        font-size: 10px; 
         padding: 10px;
-        font-size: 10px; /* Further reduce font size on small screens */
+    }
+  .neofetch-container {
+        padding: 10px;
+        font-size: 10px; 
     }
 
     .neofetch-container .highlight {
@@ -428,6 +420,6 @@
     }
 
     .neofetch-container br {
-        display: none; /* Hide breaks on small screens */
+        display: none; 
     }
 }
