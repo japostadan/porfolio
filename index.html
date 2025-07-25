@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>james@dev:~$</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="matrix-effect" id="matrix"></div>
+    
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <div class="terminal-button close"></div>
+                <div class="terminal-button minimize"></div>
+                <div class="terminal-button maximize"></div>
+            </div>
+            <div class="terminal-title">james@dev: ~</div>
+        </div>
+        
+        <div class="terminal-body" id="terminal-content">
+            <div class="line">
+                <span class="prompt">james@portfolio:~$</span> <span class="command">whoami</span>
+            </div>
+            <div class="line output">Welcome to my terminal portfolio!</div>
+            <div class="line output">Type <span class="help-command" onclick="executeCommand('help')">help</span> to see available commands.</div>
+            <div class="line"><br></div>
+            
+            <div class="line ascii-art" id="ascii-welcome">
+    ██╗  ██╗███████╗██╗     ██╗      ██████╗ 
+    ██║  ██║██╔════╝██║     ██║     ██╔═══██╗
+    ███████║█████╗  ██║     ██║     ██║   ██║
+    ██╔══██║██╔══╝  ██║     ██║     ██║   ██║
+    ██║  ██║███████╗███████╗███████╗╚██████╔╝
+    ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝ 
+            </div>
+            
+            <div class="line"><br></div>
+            <div class="line output">System initialized successfully.</div>
+            <div class="line output">Welcome, visitor! Loading portfolio data<span class="loading-dots">...</span></div>
+            <div class="line"><br></div>
+            
+            <div class="input-line">
+                <span class="prompt">james@portfolio:~$</span>
+                <input type="text" class="terminal-input" id="command-input" placeholder="Type a command..." autocomplete="off">
+                <span class="cursor">&nbsp;</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/index.js"></script>
+</body>
+</html>
