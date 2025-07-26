@@ -349,45 +349,112 @@ setupCommandInput();
      if (input) input.focus();
  });
  
- // Matrix effect (optional)
- function createMatrixEffect() {
-     const canvas = document.createElement('canvas');
-     const ctx = canvas.getContext('2d');
-     canvas.width = window.innerWidth;
-     canvas.height = window.innerHeight;
-     
-     const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
-     const matrixArray = matrix.split("");
-     
-     const fontSize = 10;
-     const columns = canvas.width / fontSize;
-     const drops = [];
-     
-     for (let x = 0; x < columns; x++) {
-         drops[x] = 1;
-     }
-     
-     function draw() {
-         ctx.fillStyle = 'rgba(13, 17, 23, 0.04)';
-         ctx.fillRect(0, 0, canvas.width, canvas.height);
-         
-         ctx.fillStyle = '#0f3460';
-         ctx.font = fontSize + 'px monospace';
-         
-         for (let i = 0; i < drops.length; i++) {
-             const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
-             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-             
-             if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                 drops[i] = 0;
-             }
-             drops[i]++;
-         }
-     }
-     
-     setInterval(draw, 35);
-     document.getElementById('matrix').appendChild(canvas);
- }
- 
- // Uncomment to enable matrix effect
-createMatrixEffect();
+
+// Enhanced Matrix effect for portfolio
+function createMatrixEffect() {
+    // Remove any existing canvas
+    const existingCanvas = document.querySelector('#matrix canvas');
+    if (existingCanvas) {
+        existingCanvas.remove();
+    }
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    // Style the canvas
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.zIndex = '-1';
+    canvas.style.pointerEvents = 'none';
+    
+    // Matrix characters - mix of code-related symbols
+    const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?/~`";
+    const matrixArray = matrix.split("");
+    
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = [];
+    
+    // Initialize drops
+    for (let x = 0; x < columns; x++) {
+        drops[x] = Math.floor(Math.random() * canvas.height / fontSize);
+    }
+    
+    function draw() {
+        // Create fade effect
+        ctx.fillStyle = 'rgba(13, 17, 23, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Set text properties
+        ctx.font = fontSize + 'px "Fira Code", monospace';
+        
+        for (let i = 0; i < drops.length; i++) {
+            // Create gradient effect - brighter at the "head" of the drop
+            const y = drops[i] * fontSize;
+            
+            // Bright green for the leading character
+            ctx.fillStyle = '#00ff41';
+            const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+            ctx.fillText(text, i * fontSize, y);
+            
+            // Dimmer green for trailing characters
+            ctx.fillStyle = 'rgba(0, 255, 65, 0.7)';
+            if (y > fontSize) {
+                const prevText = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(prevText, i * fontSize, y - fontSize);
+            }
+            
+            ctx.fillStyle = 'rgba(0, 255, 65, 0.4)';
+            if (y > fontSize * 2) {
+                const prevText2 = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(prevText2, i * fontSize, y - fontSize * 2);
+            }
+            
+            // Reset drop when it reaches bottom
+            if (y > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            
+            drops[i]++;
+        }
+    }
+    
+    // Start animation
+    const intervalId = setInterval(draw, 33); 
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // Recalculate columns
+        const newColumns = Math.floor(canvas.width / fontSize);
+        drops.length = newColumns;
+        for (let x = drops.length; x < newColumns; x++) {
+            drops[x] = Math.floor(Math.random() * canvas.height / fontSize);
+        }
+    });
+    
+    // Append to matrix container
+    const matrixContainer = document.getElementById('matrix');
+    if (matrixContainer) {
+        matrixContainer.appendChild(canvas);
+    } else {
+        console.warn('Matrix container (#matrix) not found');
+        document.body.appendChild(canvas);
+    }
+    
+    return intervalId; // Return interval ID for potential cleanup
+}
+// Initialize matrix effect when DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Small delay to ensure terminal is ready
+    setTimeout(() => {
+        createMatrixEffect();
+    }, 500);
+});
