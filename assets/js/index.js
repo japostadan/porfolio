@@ -15,6 +15,12 @@ const commands = {
                 <li><span class="success">contact</span> - Get my contact information</li>
                 <li><span class="success">ls</span> - List directory contents</li>
                 <li><span class="success">cat</span> - Display file contents</li>
+                <li><span class="success">head</span> - Show first lines of file</li>
+                <li><span class="success">file</span> - Determine file type</li>
+                <li><span class="success">grep</span> - Search text in files</li>
+                <li><span class="success">find</span> - Search for files</li>
+                <li><span class="success">wc</span> - Count lines, words, characters</li>
+                <li><span class="success">download</span> - Download files</li>
                 <li><span class="success">clear</span> - Clear the terminal</li>
                 <li><span class="success">neofetch</span> - Display system information</li>
                 <li><span class="success">tree</span> - Show directory tree</li>
@@ -161,8 +167,8 @@ const commands = {
     },
 
     ls: () => {
-        return `<span class="directory">projects/</span>    <span class="directory">skills/</span>    <span class="file">about.txt</span>    <span class="file">contact.md</span>    <span class="file">resume.pdf</span>`;
-    },
+        return `<span class="directory">projects/</span>    <span class="directory">skills/</span>    <span class="file">about.txt</span>    <span class="file">contact.md</span>    <span class="file">resume.pdf</span>    <span class="file">README.md</span>    <span class="file">skills.json</span>    <span class="file">project1.md</span>    <span class="file">project2.md</span>    <span class="file">project3.md</span>    <span class="file">project4.md</span>    <span class="file">project5.md</span>`;
+        }, 
             
     pwd: () => '/home/james/portfolio',
             
@@ -221,91 +227,399 @@ const commands = {
     `;
 },
  
-    cat: (args) => {
-        if (!args || args.length === 0) {
-            return '<span class="error">cat: missing operand</span>';
+   // Replace your existing cat command with this:
+cat: (args) => {
+    if (!args || args.length === 0) {
+        return `<span class="error">cat: missing operand</span>
+            <span class="success">Try:</span> cat [filename]
+            
+            <span class="success">Available files:</span>
+            • project1.md, project2.md, project3.md, project4.md, project5.md
+            • about.txt, contact.md, README.md, skills.json
+            • resume.pdf (binary file)`;
+    }
+    
+    const filename = args[0];
+    
+    // Project files with enhanced content
+    const files = {
+        'project1.md': `<span class="highlight">Project: E-Commerce Platform</span>
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            
+            <span class="success">📋 Description:</span>
+            A full-stack e-commerce platform built with modern web technologies.
+            Features include user authentication, product catalog, shopping cart,
+            payment processing, and comprehensive admin dashboard.
+
+            <span class="success">✨ Key Features:</span>
+            • User registration and authentication with JWT
+            • Advanced product search and filtering
+            • Real-time shopping cart functionality
+            • Secure payment processing with Stripe integration
+            • Order management and tracking system
+            • Admin panel for inventory and user management
+            • Email notifications and order confirmations
+            • Mobile-responsive design
+
+            <span class="success">🛠️ Technologies Used:</span>
+            • <span class="highlight">Frontend:</span> React 18, Redux Toolkit, Tailwind CSS
+            • <span class="highlight">Backend:</span> Node.js, Express.js, JWT Auth
+            • <span class="highlight">Database:</span> MongoDB with Mongoose ODM
+            • <span class="highlight">Payment:</span> Stripe API, PayPal integration
+            • <span class="highlight">Deployment:</span> Docker, AWS EC2, Nginx
+
+            <span class="success">🔗 Links:</span>
+            • <span class="highlight">GitHub:</span> github.com/japostadan/ecommerce-platform
+            • <span class="highlight">Live Demo:</span> ecommerce-demo.japostadan.dev
+            • <span class="highlight">API Docs:</span> api.ecommerce-demo.japostadan.dev/docs`,
+            
+        'project2.md': `<span class="highlight">Project: Data Visualization Dashboard</span>
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            
+            <span class="success">📋 Description:</span>
+            Interactive dashboard for real-time data analysis and visualization.
+            Built for business intelligence with customizable charts and reports.
+
+            <span class="success">✨ Key Features:</span>
+            • Real-time data streaming with WebSockets
+            • Interactive charts (line, bar, pie, scatter plots)
+            • Customizable dashboard layouts
+            • Data filtering and drill-down capabilities
+            • Export functionality (PDF, Excel, CSV)
+            • User role-based access control
+
+            <span class="success">🛠️ Technologies Used:</span>
+            • <span class="highlight">Frontend:</span> React, D3.js, Chart.js, Material-UI
+            • <span class="highlight">Backend:</span> Python Flask, SQLAlchemy
+            • <span class="highlight">Database:</span> PostgreSQL, Redis (caching)
+            • <span class="highlight">Data Processing:</span> Pandas, NumPy
+
+            <span class="success">🔗 Links:</span>
+            • <span class="highlight">GitHub:</span> github.com/japostadan/data-dashboard
+            • <span class="highlight">Live Demo:</span> dashboard.japostadan.dev`,
+            
+        'project3.md': `<span class="highlight">Project: AI Chatbot Application</span>
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            
+            <span class="success">📋 Description:</span>
+            Intelligent conversational AI chatbot with natural language processing,
+            context awareness, and multi-language support.
+
+            <span class="success">🧠 AI Features:</span>
+            • Natural language understanding (NLU)
+            • Context-aware conversations
+            • Intent recognition and entity extraction
+            • Sentiment analysis
+            • Multi-language support (EN, ES, FR, DE)
+
+            <span class="success">🛠️ Technologies Used:</span>
+            • <span class="highlight">AI/ML:</span> TensorFlow, Transformers, spaCy
+            • <span class="highlight">Backend:</span> Python FastAPI, Async/Await
+            • <span class="highlight">Frontend:</span> React, WebRTC, Web Speech API
+            • <span class="highlight">Database:</span> MongoDB, Vector Database
+
+            <span class="success">🔗 Links:</span>
+            • <span class="highlight">GitHub:</span> github.com/japostadan/ai-chatbot
+            • <span class="highlight">Live Demo:</span> chatbot.japostadan.dev`,
+            
+        'project4.md': `<span class="highlight">Project: Mobile Task Manager</span>
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            
+            <span class="success">📋 Description:</span>
+            Cross-platform mobile application for productivity and task management
+            with real-time synchronization and team collaboration.
+
+            <span class="success">📱 Mobile Features:</span>
+            • Cross-platform (iOS & Android)  
+            • Offline functionality with sync
+            • Push notifications
+            • Biometric authentication
+            • Dark mode support
+            • Widget support
+
+            <span class="success">🛠️ Technologies Used:</span>
+            • <span class="highlight">Mobile:</span> React Native, Expo
+            • <span class="highlight">State:</span> Redux Toolkit, Async Storage
+            • <span class="highlight">Backend:</span> Node.js, Express, Socket.IO
+            • <span class="highlight">Database:</span> Firebase Firestore
+
+            <span class="success">🔗 Links:</span>
+            • <span class="highlight">GitHub:</span> github.com/japostadan/task-manager-mobile
+            • <span class="highlight">iOS App:</span> apps.apple.com/app/task-manager-pro
+            • <span class="highlight">Android App:</span> play.google.com/store/apps/task-manager-pro`,
+
+        'project5.md': `<span class="highlight">Project: Blockchain Voting System</span>
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            
+            <span class="success">📋 Description:</span>
+            Secure, transparent, and decentralized voting system built on blockchain
+            technology with cryptographic security and real-time results.
+
+            <span class="success">🔐 Security Features:</span>
+            • End-to-end encryption
+            • Immutable vote recording  
+            • Zero-knowledge proofs for privacy
+            • Smart contract validation
+            • Anonymous voter verification
+
+            <span class="success">🛠️ Technologies Used:</span>
+            • <span class="highlight">Blockchain:</span> Ethereum, Solidity, Web3.js
+            • <span class="highlight">Frontend:</span> React, MetaMask integration
+            • <span class="highlight">Backend:</span> Node.js, IPFS for storage
+            • <span class="highlight">Smart Contracts:</span> OpenZeppelin, Truffle
+
+            <span class="success">🔗 Links:</span>
+            • <span class="highlight">GitHub:</span> github.com/japostadan/blockchain-voting
+            • <span class="highlight">Live Demo:</span> voting.japostadan.dev`,
+            
+        'about.txt': commands.about(),
+        'contact.md': commands.contact(),
+        'README.md': `<span class="highlight">James Postadan - Portfolio</span>
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            
+            ## 🚀 Welcome to my Terminal Portfolio
+            
+            This interactive terminal showcases my projects, skills, and experience.
+            
+            ### 📁 Available Files:
+            • project1.md - E-Commerce Platform
+            • project2.md - Data Visualization Dashboard  
+            • project3.md - AI Chatbot Application
+            • project4.md - Mobile Task Manager
+            • project5.md - Blockchain Voting System
+            
+            Type 'help' for available commands!`,
+            
+        'resume.pdf': `<span class="error">cat: resume.pdf: cannot display binary file</span>
+            <span class="success">Use 'download resume.pdf' or visit japostadan.dev/resume</span>`,
+            
+        'skills.json': `<span class="highlight">Technical Skills (JSON Format)</span>
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            <pre>{
+  "frontend": { "JavaScript": 90, "React": 88, "TypeScript": 85 },
+  "backend": { "Node.js": 82, "Python": 85, "Express.js": 80 },
+  "databases": { "MongoDB": 80, "PostgreSQL": 75, "Redis": 70 },
+  "devops": { "Docker": 75, "AWS": 70, "Kubernetes": 65 }
+}</pre>`
+    };
+    
+    if (files[filename]) {
+        return files[filename];
+    } else {
+        // Suggest similar files
+        const suggestions = Object.keys(files).filter(file => 
+            file.includes(filename) || filename.includes(file.split('.')[0])
+        );
+        
+        let suggestionText = '';
+        if (suggestions.length > 0) {
+            suggestionText = `\n<span class="success">Did you mean:</span> ${suggestions.join(', ')}`;
         }
         
-        const file = args[0];
-        if (file === 'about.txt') {
-            return commands.about();
-        } else if (file === 'contact.md') {
-            return commands.contact();
-        } else if (file === 'project1.md') {
-            return `<span class="highlight">Project: E-Commerce Platform</span>
-                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                <span class="success">Description:</span>
-                A full-stack e-commerce platform built with modern web technologies.
-                Features include user authentication, product catalog, shopping cart,
-                payment processing, and admin dashboard.
+        return `<span class="error">cat: ${filename}: No such file or directory</span>${suggestionText}`;
+    }
+}, 
+// Add these to your commands object:
 
-                <span class="success">Key Features:</span>
-                • User registration and authentication
-                • Product search and filtering
-                • Shopping cart functionality
-                • Secure payment processing with Stripe
-                • Order management system
-                • Admin panel for inventory management
+file: (args) => {
+    if (!args || args.length === 0) {
+        return '<span class="error">file: missing operand</span>';
+    }
+    
+    const filename = args[0];
+    const fileTypes = {
+        'project1.md': 'Markdown document, ASCII text',
+        'project2.md': 'Markdown document, ASCII text', 
+        'project3.md': 'Markdown document, ASCII text',
+        'project4.md': 'Markdown document, ASCII text',
+        'project5.md': 'Markdown document, ASCII text',
+        'about.txt': 'ASCII text',
+        'contact.md': 'Markdown document, ASCII text',
+        'README.md': 'Markdown document, ASCII text',
+        'skills.json': 'JSON data, ASCII text',
+        'resume.pdf': 'PDF document, version 1.4'
+    };
+    
+    if (fileTypes[filename]) {
+        return `<span class="success">${filename}:</span> ${fileTypes[filename]}`;
+    } else {
+        return `<span class="error">file: ${filename}: No such file or directory</span>`;
+    }
+},
 
-                <span class="success">Technologies Used:</span>
-                • Frontend: React, Redux, Tailwind CSS
-                • Backend: Node.js, Express.js
-                • Database: MongoDB
-                • Payment: Stripe API
-                • Deployment: Docker, AWS
+head: (args) => {
+    if (!args || args.length === 0) {
+        return '<span class="error">head: missing operand</span>';
+    }
+    
+    const filename = args[0];
+    const previews = {
+        'project1.md': `<span class="highlight">Project: E-Commerce Platform</span>
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            
+            <span class="success">📋 Description:</span>
+            A full-stack e-commerce platform built with modern web technologies...
+            
+            <span class="success">[Use 'cat ${filename}' to see full content]</span>`,
+        'README.md': `<span class="highlight">James Postadan - Portfolio</span>
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            
+            ## 🚀 Welcome to my Terminal Portfolio
+            
+            <span class="success">[Use 'cat ${filename}' to see full content]</span>`
+    };
+    
+    if (previews[filename]) {
+        return previews[filename];
+    } else {
+        return `<span class="error">head: ${filename}: No such file or directory</span>`;
+    }
+},
 
-                <span class="success">GitHub:</span> github.com/japostadan/ecommerce-platform
-                <span class="success">Live Demo:</span> ecommerce-demo.japostadan.dev`;
-            } else {
-                return `<span class="error">cat: ${file}: No such file or directory</span>`;
+    grep: (args) => {
+        if (!args || args.length < 2) {
+            return '<span class="error">grep: missing operands</span>\n<span class="success">Usage:</span> grep [pattern] [file]';
+        }
+        
+        const pattern = args[0].toLowerCase();
+        const filename = args[1];
+        
+        if (filename === 'project1.md') {
+            if (pattern.includes('react') || pattern.includes('javascript')) {
+                return `<span class="success">Found matches in ${filename}:</span>
+                    • Frontend: React 18, Redux Toolkit, Tailwind CSS
+                    • JavaScript, Node.js, Express.js`;
+            } else if (pattern.includes('ecommerce') || pattern.includes('commerce')) {
+                return `<span class="success">Found matches in ${filename}:</span>
+                    • E-Commerce Platform
+                    • Full-stack e-commerce solution`;
             }
+        }
+        
+        return `<span class="error">grep: no matches found for "${pattern}" in ${filename}</span>`;
+    },
+
+    download: (args) => {
+        if (!args || args.length === 0) {
+            return '<span class="error">download: missing operand</span>';
+        }
+        
+        const filename = args[0];
+        if (filename === 'resume.pdf') {
+            return `<span class="success">Initiating download...</span>
+                <span class="highlight">📄 Resume Download</span>
+                • <span class="success">File:</span> james_postadan_resume.pdf
+                • <span class="success">Size:</span> 245 KB
+                • <span class="success">Direct Link:</span> japostadan.dev/resume.pdf
+                
+                <span class="success">✅ Download would start in a real browser</span>`;
+        } else {
+            return `<span class="error">download: ${filename}: File not available for download</span>`;
+        }
+    },
+
+    find: (args) => {
+        if (!args || args.length === 0) {
+            return `<span class="success">Found files:</span>
+                ./about.txt
+                ./contact.md  
+                ./README.md
+                ./skills.json
+                ./project1.md
+                ./project2.md
+                ./project3.md
+                ./project4.md
+                ./project5.md
+                ./resume.pdf`;
+        }
+        
+        const pattern = args[0].toLowerCase();
+        const matches = [
+            'project1.md', 'project2.md', 'project3.md', 'project4.md', 'project5.md',
+            'about.txt', 'contact.md', 'README.md', 'skills.json', 'resume.pdf'
+        ].filter(file => file.toLowerCase().includes(pattern));
+        
+        if (matches.length > 0) {
+            return `<span class="success">Found matches:</span>\n${matches.map(f => `./` + f).join('\n')}`;
+        } else {
+            return `<span class="error">find: no files matching "${pattern}"</span>`;
+        }
+    },
+
+    wc: (args) => {
+        if (!args || args.length === 0) {
+            return '<span class="error">wc: missing operand</span>';
+        }
+        
+        const filename = args[0];
+        const wordCounts = {
+            'project1.md': { lines: 45, words: 320, chars: 2180 },
+            'project2.md': { lines: 38, words: 285, chars: 1920 },
+            'project3.md': { lines: 42, words: 310, chars: 2050 },
+            'project4.md': { lines: 40, words: 295, chars: 1980 },
+            'project5.md': { lines: 44, words: 325, chars: 2150 },
+            'README.md': { lines: 20, words: 145, chars: 980 },
+            'about.txt': { lines: 25, words: 180, chars: 1200 }
+        };
+        
+        if (wordCounts[filename]) {
+            const count = wordCounts[filename];
+            return `<span class="success">${count.lines} ${count.words} ${count.chars} ${filename}</span>`;
+        } else {
+            return `<span class="error">wc: ${filename}: No such file or directory</span>`;
+        }
     }
 };
 
- function executeCommand(commandLine) {
-     const parts = commandLine.trim().split(' ');
-     const command = parts[0].toLowerCase();
-     const args = parts.slice(1);
-     
-     // Add command to terminal
-     const commandDiv = document.createElement('div');
-     commandDiv.className = 'line';
-     commandDiv.innerHTML = `<span class="prompt">james@portfolio:~$</span> <span class="command">${commandLine}</span>`;
-     
-     const inputLine = document.querySelector('.input-line');
-     terminalContent.insertBefore(commandDiv, inputLine);
-     
-     // Execute command
-     let output = '';
-     if (commands[command]) {
-         if (command === 'cat') {
-             output = commands[command](args);
-         } else {
-             output = commands[command]();
-         }
-     } else if (command === '') {
-         output = '';
-     } else {
-         output = `<span class="error">Command not found: ${command}</span>\nType <span class="help-command" onclick="executeCommand('help')">help</span> for available commands.`;
-     }
-     
-     if (output && command !== 'clear') {
-         const outputDiv = document.createElement('div');
-         outputDiv.className = 'line output';
-         outputDiv.innerHTML = output;
-         terminalContent.insertBefore(outputDiv, inputLine);
-         
-         // Add spacing
-         const spaceDiv = document.createElement('div');
-         spaceDiv.className = 'line';
-         spaceDiv.innerHTML = '<br>';
-         terminalContent.insertBefore(spaceDiv, inputLine);
-     }
-     
-     // Scroll to bottom
-     terminalContent.scrollTop = terminalContent.scrollHeight;
- }
+function executeCommand(commandLine) {
+    const parts = commandLine.trim().split(' ');
+    const command = parts[0].toLowerCase();
+    const args = parts.slice(1); // Get all arguments after the command
+    
+    console.log('Command:', command, 'Args:', args); // Debug line - remove later
+    
+    // Add command to terminal
+    const commandDiv = document.createElement('div');
+    commandDiv.className = 'line';
+    commandDiv.innerHTML = `<span class="prompt">james@portfolio:~$</span> <span class="command">${commandLine}</span>`;
+    
+    const inputLine = document.querySelector('.input-line');
+    terminalContent.insertBefore(commandDiv, inputLine);
+    
+    // Execute command
+    let output = '';
+    if (commands[command]) {
+        // Check if command needs arguments
+        if (command === 'cat' || command === 'download' || command === 'file' || 
+            command === 'head' || command === 'grep' || command === 'find' || 
+            command === 'wc' || command === 'matrix') {
+            output = commands[command](args);
+        } else {
+            output = commands[command]();
+        }
+    } else if (command === '') {
+        output = '';
+    } else {
+        output = `<span class="error">Command not found: ${command}</span>\nType <span class="help-command" onclick="executeCommand('help')">help</span> for available commands.`;
+    }
+    
+    if (output && command !== 'clear') {
+        const outputDiv = document.createElement('div');
+        outputDiv.className = 'line output';
+        outputDiv.innerHTML = output;
+        terminalContent.insertBefore(outputDiv, inputLine);
         
+        // Add spacing
+        const spaceDiv = document.createElement('div');
+        spaceDiv.className = 'line';
+        spaceDiv.innerHTML = '<br>';
+        terminalContent.insertBefore(spaceDiv, inputLine);
+    }
+    
+    // Scroll to bottom
+    terminalContent.scrollTop = terminalContent.scrollHeight;
+}
+
 function setupCommandInput() {
     const input = document.getElementById('command-input');
     if (!input) return;
@@ -344,11 +658,11 @@ function setupCommandInput() {
 setupCommandInput();
         
  // Auto-focus input when clicking anywhere
- document.addEventListener('click', () => {
-     const input = document.getElementById('command-input');
-     if (input) input.focus();
- });
- 
+document.addEventListener('click', () => {
+    const input = document.getElementById('command-input');
+    if (input) input.focus();
+});
+
 
 // Enhanced Matrix effect for portfolio
 function createMatrixEffect() {
@@ -398,18 +712,18 @@ function createMatrixEffect() {
             const y = drops[i] * fontSize;
             
             // Bright green for the leading character
-            ctx.fillStyle = '#00ff41';
+            ctx.fillStyle = '#0004ffff';
             const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
             ctx.fillText(text, i * fontSize, y);
             
             // Dimmer green for trailing characters
-            ctx.fillStyle = 'rgba(0, 255, 65, 0.7)';
+            ctx.fillStyle = 'rgba(0, 76, 255, 0.7)';
             if (y > fontSize) {
                 const prevText = matrixArray[Math.floor(Math.random() * matrixArray.length)];
                 ctx.fillText(prevText, i * fontSize, y - fontSize);
             }
             
-            ctx.fillStyle = 'rgba(0, 255, 65, 0.4)';
+            ctx.fillStyle = 'rgba(0, 102, 255, 0.4)';
             if (y > fontSize * 2) {
                 const prevText2 = matrixArray[Math.floor(Math.random() * matrixArray.length)];
                 ctx.fillText(prevText2, i * fontSize, y - fontSize * 2);
